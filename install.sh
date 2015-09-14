@@ -6,4 +6,4 @@ ln -s $ROOT_PATH/bin/node-v0.12.7-darwin-x64/bin/npm /usr/local/bin/npm
 rm /usr/local/bin/phantomjs
 ln -s $ROOT_PATH/bin/phantomjs-1.9.8-macosx/bin/phantomjs /usr/local/bin/phantomjs
 rm /usr/local/bin/casperjs
-ln -s $ROOT_PATH/bin/n1k0-casperjs-4f105a9/bin/casperjs /usr/local/bin/casperjs
+ln -s $ROOT_PATH/bin/casperjs-1.0.0/bin/casperjs /usr/local/bin/casperjs
