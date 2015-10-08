@@ -5,6 +5,7 @@
     var data = require(ROOT + '/core/workflow/data/');
     var action = require(ROOT + '/core/workflow/action');
     var control = require(ROOT + '/core/workflow/control');
+    var executor = require(ROOT + '/core/workflow/executor');
 
     var BaseWorkflow = function(){
 
@@ -17,14 +18,6 @@
     BaseWorkflow.end = function(){
         console.log('end from base');
     };
-
-    BaseWorkflow.executeControl = function(controlName, controlData){
-        _.property(controlName)(control)(controlData);
-    };
-
-    BaseWorkflow.executeAction = function(actionName, actionData){
-        _.property(actionName)(action)(actionData);
-    }
 
     BaseWorkflow.then = function(){
         console.log('then from base');
@@ -55,28 +48,14 @@
         console.log(this.__config);
     };
 
-    // BaseWorkflow.work = function(){
-    //     BaseWorkflow.start();
-    //     _.each(this.__config['workflow'], function (ele, idx) {
-    //         // BaseWorkflow.then();
-    //         if(ele.type === 'action'){
-    //             _.property(idx)(BaseWorkflow)();
-    //         } 
-    //         else if(ele.type === 'control'){
-    //             console.log(idx);
-    //         }
-    //     });
-    // };
-
     BaseWorkflow.work = function(){
         BaseWorkflow.start();
         _.each(this.__config['workflow'], function (ele, idx) {
             // BaseWorkflow.then();
             if(ele.type === 'action'){
-                BaseWorkflow.executeAction(idx, ele)
-            } 
-            else if(ele.type === 'control'){
-                BaseWorkflow.executeControl(idx, ele)
+                executor.executeAction(idx, ele)
+            }else if(ele.type === 'control'){
+                executor.executeControl(idx, ele)
             }
         });
     };

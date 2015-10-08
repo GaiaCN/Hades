@@ -1,7 +1,7 @@
-"use strict";
-var obj2 = { get x() { return 10; } };
+// "use strict";
+// var obj2 = { get x() { return 10; } };
 // obj2.x = 1;
-console.log(obj2.x);
+// console.log(obj2.x);
 
 // function withValue(value) {
 //   var d = withValue.d || (
@@ -25,3 +25,10 @@ console.log(obj2.x);
 // for (var i in o) {
 //   console.log(i);
 // }
+
+var a = function() {
+    this.__a = 1;
+    console.log(this);
+}
+
+console.log(a())

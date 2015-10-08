@@ -19,7 +19,7 @@ var config = {
     "workflow": {
         "sequence": {
             "type": "control",
-            "actions": {
+            "workflow": {
                 "open": {
                     "url": "dianping_url",
                     "type": "action",
@@ -32,7 +32,7 @@ var config = {
                 "loop": {
                     "iterator": "dianping_web_shop_list_scrape_data.shop",
                     "type": "control",
-                    "actions": {
+                    "workflow": {
                         "open": {
                             "type": "action",
                             "url": "item.a",
@@ -41,6 +41,9 @@ var config = {
                             "type": "action",
                             "selector": "dianping_detail_css_selector",
                             "return": "dianping_shop_detail_scrape_data",
+                        },
+                        "click": {
+                            "type": "action",
                         }
                     }
                 },
