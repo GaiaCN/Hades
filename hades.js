@@ -1,8 +1,8 @@
 require('./core/bootstrap/main');
-var BaseWorkflow = require('./core/workflow/base');
+var workFlow = require('./core/workflow/base');
 
 var config = {
-    "resource": {
+    "data": {
         "dianping_url": {
             "value": "http://www.dianping.com/beijing",
             "type": "url",
@@ -17,36 +17,42 @@ var config = {
         },
     },
     "workflow": {
-        "open": {
-            "url": "dianping_url",
-            "type": "action",
-        },
-        "scrape": {
-            "type": "action",
-            "selector": "dianping_list_css_selector",
-            "return": "dianping_web_shop_list_scrape_data",
-        },
-        "loop": {
-            "iterator": "dianping_web_shop_list_scrape_data.shop",
+        "sequence": {
             "type": "control",
-            "open": {
-                "type": "action",
-                "url": "item.a",
+            "actions": {
+                "open": {
+                    "url": "dianping_url",
+                    "type": "action",
+                },
+                "scrape": {
+                    "type": "action",
+                    "selector": "dianping_list_css_selector",
+                    "return": "dianping_web_shop_list_scrape_data",
+                },
+                "loop": {
+                    "iterator": "dianping_web_shop_list_scrape_data.shop",
+                    "type": "control",
+                    "actions": {
+                        "open": {
+                            "type": "action",
+                            "url": "item.a",
+                        },
+                        "scrape": {
+                            "type": "action",
+                            "selector": "dianping_detail_css_selector",
+                            "return": "dianping_shop_detail_scrape_data",
+                        }
+                    }
+                },
+                "save": {
+                    "type": "action",
+                    "data": "dianping_web_shop_list_scrape_data",
+                    "name": "dianping_list"
+                }
             },
-            "scrape": {
-                "type": "action",
-                "selector": "dianping_detail_css_selector",
-                "return": "dianping_shop_detail_scrape_data",
-            }
         },
-        "save": {
-            "type": "action",
-            "data": "dianping_web_shop_list_scrape_data",
-            "name": "dianping_list"
-        }
     }
 }
-BaseWorkflow.loadConfig(config);
-BaseWorkflow.work();
 
-// BaseWorkflow.click();
+workFlow.loadConfig(config);
+workFlow.work();

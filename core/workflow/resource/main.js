@@ -2,6 +2,6 @@
     "use strict";
 
     module.exports = {
-        URL: require('./url'),
+        proxy: require('./proxy'),
     };
 })();
